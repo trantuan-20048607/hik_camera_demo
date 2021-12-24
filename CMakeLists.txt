@@ -11,6 +11,8 @@ add_compile_options(-O3 -std=c++2a -flto -march=native)
 add_compile_options(
         -DELPP_THREAD_SAFE
         -DELPP_UNICODE
+        -DELPP_STACKTRACE_ON_CRASH
+        -DELPP_NO_DEFAULT_LOG_FILE
 )
 
 find_package(OpenCV 4 REQUIRED)
