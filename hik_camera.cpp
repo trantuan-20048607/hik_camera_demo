@@ -2,7 +2,7 @@
 
 #include <opencv2/imgproc.hpp>
 
-#include "log/easylogging++.h"
+#include "easylogging++/easylogging++.h"
 #include "hik_camera.h"
 
 unsigned int HikCamera::camera_count_ = 0;

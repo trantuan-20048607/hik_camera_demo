@@ -5,7 +5,7 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 
-#include "log/easylogging++.h"
+#include "easylogging++/easylogging++.h"
 #include "hik_camera.h"
 
 int main() {

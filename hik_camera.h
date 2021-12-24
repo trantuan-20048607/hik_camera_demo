@@ -6,7 +6,7 @@
 #include <opencv2/core.hpp>
 #include "MvCameraControl.h"
 
-#include "log/easylogging++.h"
+#include "easylogging++/easylogging++.h"
 #include "buffer.h"
 
 class HikCamera {
@@ -123,7 +123,7 @@ private:
 
     std::string serial_number_;
 
-    Buffer<cv::Mat, 3> buffer_;
+    Buffer<cv::Mat, 4> buffer_;
 };
 
 #endif  // _HIK_CAMERA_H_

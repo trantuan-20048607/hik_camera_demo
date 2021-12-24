@@ -3,17 +3,37 @@ project(hik_camera_demo)
 
 set(MVS_PATH /opt/MVS)
 
-# Optimizer
-set(CMAKE_CXX_COMPILER /usr/bin/g++-9)
-add_compile_options(-O3 -std=c++2a -flto -march=native)
-
-# Options for EasyLogging++
 add_compile_options(
+        -std=c++2a
         -DELPP_THREAD_SAFE
         -DELPP_UNICODE
-        -DELPP_STACKTRACE_ON_CRASH
-        -DELPP_NO_DEFAULT_LOG_FILE
 )
+
+# Options for different build type.
+if (CMAKE_BUILD_TYPE STREQUAL Debug)
+    add_compile_options(
+            # Complete debugger support.
+            -O0
+            # Default log file path.
+            -DELPP_DEFAULT_LOG_FILE="../log/debug.log"
+            # Enable stack backtrace log when the program crashes.
+            -DELPP_FEATURE_CRASH_LOG
+            # Enable performance tracking macro: TIMED_SCOPE, TIMED_FUNC, etc.
+            -DELPP_FEATURE_PERFORMANCE_TRACKING
+    )
+elseif (CMAKE_BUILD_TYPE STREQUAL Release)
+    add_compile_options(
+            # Maximum speed.
+            -O3
+            -flto
+            # Disable this flag when error occurs.
+            -march=native
+            -DELPP_DEFAULT_LOG_FILE="../log/release.log"
+            # Disable LOG(DEBUG) to improve performance.
+            -DELPP_DISABLE_DEBUG_LOGS
+    )
+endif ()
+
 
 find_package(OpenCV 4 REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
@@ -26,7 +46,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 file(GLOB SRC ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 
-file(GLOB LOGGING_SRC ${CMAKE_CURRENT_SOURCE_DIR}/log/*.c*)
+file(GLOB LOGGING_SRC ${CMAKE_CURRENT_SOURCE_DIR}/easylogging++/*.c*)
 
 add_executable(hik_camera_demo ${SRC} ${LOGGING_SRC})
 
